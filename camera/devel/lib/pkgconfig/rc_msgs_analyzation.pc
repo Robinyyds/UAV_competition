@@ -1,0 +1,8 @@
+prefix=/home/nuaa/turtle/Smart-Turtle-master/camera/devel
+
+Name: rc_msgs_analyzation
+Description: Description of rc_msgs_analyzation
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

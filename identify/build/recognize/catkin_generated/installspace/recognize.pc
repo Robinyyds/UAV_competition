@@ -1,0 +1,8 @@
+prefix=/home/nuaa/turtle/Smart-Turtle-master/identify/install
+
+Name: recognize
+Description: Description of recognize
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

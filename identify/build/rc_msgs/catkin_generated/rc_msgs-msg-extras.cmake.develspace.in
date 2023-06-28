@@ -1,0 +1,2 @@
+set(rc_msgs_MESSAGE_FILES "/home/nuaa/turtle/Smart-Turtle-master/identify/src/rc_msgs/msg/point.msg;/home/nuaa/turtle/Smart-Turtle-master/identify/src/rc_msgs/msg/detection.msg;/home/nuaa/turtle/Smart-Turtle-master/identify/src/rc_msgs/msg/results.msg;/home/nuaa/turtle/Smart-Turtle-master/identify/src/rc_msgs/msg/single_result.msg;/home/nuaa/turtle/Smart-Turtle-master/identify/src/rc_msgs/msg/identify_results.msg;/home/nuaa/turtle/Smart-Turtle-master/identify/src/rc_msgs/msg/calibrateResult.msg")
+set(rc_msgs_SERVICE_FILES "")

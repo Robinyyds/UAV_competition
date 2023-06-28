@@ -1,0 +1,8 @@
+\subsubsection usage Usage
+\verbatim
+<node name="rc_msgs" pkg="rc_msgs" type="rc_msgs">
+  <param name="step" type="int" value="0" />
+  <param name="mode" type="str" value="None" />
+</node>
+\endverbatim
+

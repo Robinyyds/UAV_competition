@@ -1,0 +1,2 @@
+OrbbecSDK_ROS1:cam_driver:mv_driver:rc_msgs:rc_msgs_analyzation:video_pub
+-DCATKIN_DEVEL_PREFIX=/home/nuaa/turtle/Smart-Turtle-master/camera/devel -DCMAKE_INSTALL_PREFIX=/home/nuaa/turtle/Smart-Turtle-master/camera/install -G Unix Makefiles
