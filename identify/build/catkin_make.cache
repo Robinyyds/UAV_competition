@@ -1,2 +1,0 @@
-rc_msgs:recognize
--DCATKIN_DEVEL_PREFIX=/home/nuaa/turtle/Smart-Turtle-master/identify/devel -DCMAKE_INSTALL_PREFIX=/home/nuaa/turtle/Smart-Turtle-master/identify/install -G Unix Makefiles

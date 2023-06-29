@@ -1,8 +1,0 @@
-prefix=/home/nuaa/turtle/Smart-Turtle-master/camera/devel
-
-Name: cam_driver
-Description: Description of cam_driver
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
