@@ -37,7 +37,7 @@ include_directories(
 
 add_executable(
         ${PROJECT_NAME}_node
-        src/recognize.cpp)
+        src/recognize.cpp )
 
 target_link_libraries(
         ${PROJECT_NAME}_node
