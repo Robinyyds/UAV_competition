@@ -14,52 +14,30 @@
 using namespace cv;
 Mat img_show;
 ros::Publisher depthPub;
-float d_value = 0,d_value1=0;
-int cnt,i=0;
-bool judge_dis(int i_pre,cv::Mat depth_pic){
-    if(i_pre <10 && i_pre >=0){
-        ushort sum = 0;
-        ushort sum_cen = 0 ;
-        for(int g = 0; g < 20;g++){
-            sum_cen = sum_cen + depth_pic.at<ushort>({310+g,240});
-            if(depth_pic.at<ushort>({310+g,240}) == 0)
-                return false;
-        }
-        for(int g = 120; g < 140;g++){
-            sum = sum + depth_pic.at<ushort>({g,240});
-            if(depth_pic.at<ushort>({g,240}) == 0)
-                return false;
-        }
-        float dist = float(sum)/20000,center = float(sum_cen)/20000;
-        if(dist<0.4*center && dist!=0 && center!=0 ){
-            std::cout<<"youtiaobian"<<std::endl;
-            i ++ ;
-            std::cout<<"i:"<<i<<std::endl;
-            ushort dis = depth_pic.at<ushort>({340,240})/1000;
-            std::cout<< "Value of depth_pic's pixel= "<<center<< "         "<<dist<<std::endl;
-            return true;
-        }else{
-            return false;
-        }
-    }else if(i_pre >=10 && i_pre <13){
-        ushort sum = 0;
-        ushort sum_cen = 0 ;
-        for(int g = 0; g < 20;g++){
-            sum_cen = sum_cen + depth_pic.at<ushort>({310+g,240});
-        }
-        for(int g = 550; g > 530;g--){
-            sum = sum + depth_pic.at<ushort>({g,240});
-        }
-        float dist = float(sum)/20000,center = float(sum_cen)/20000;
-        if(dist<0.4*center && dist!=0 && center!=0 ){
-            std::cout<<"zhaodaole\n\n"<<std::endl;
-            i++;
-            std::cout<<"i:"<<i<<std::endl;
-            std::cout<< "Value of depth_pic's pixel= "<<center<< "         "<<dist<<std::endl;
-            return true;
-        }else{
-            return false;
-        }
+int res = 0;
+
+bool judge_dis(cv::Mat depth_pic){
+    long left = 0,right = 0,_center = 0;
+    for(int g = 0; g < 5;g++){
+        left = left + depth_pic.at<ushort>({10+g,240});
+    }
+    for(int i = 0; i < 5;i++){
+        right = right + depth_pic.at<ushort>({630-i,240});
+    }
+    for(int i = 0; i < 10;i++){
+        _center = _center + depth_pic.at<ushort>({316+i,240});
+    }
+    _center = _center / 10+1000;
+    const long side = 700,depth_min = 5000,depth_centre_max = 2000;
+    std::cout<<left/5<<std::endl;
+    if(abs(left - right) > side || left > depth_min || right > depth_min){
+        return false;
+    }else if (((left+right)/10)*3 > _center){
+        return false;
+    }else if(_center > depth_centre_max){
+        return true;
+    }else{
+        return false;
     }
 }
 void Image_cb(const sensor_msgs::ImageConstPtr &msg) {
@@ -104,18 +82,18 @@ void depth_imageCb(const sensor_msgs::ImageConstPtr& msg)
     cv_bridge::CvImagePtr Dest ;
     Dest = cv_bridge::toCvCopy(msg,sensor_msgs::image_encodings::TYPE_16UC1);
     cv::Mat depth_pic = Dest->image;
-    Point point,point1;
-    point = {320,240};
-    point1 = {600,240};
-    ushort d,d1;
-    d = depth_pic.at<ushort>(point);
-    d1 = depth_pic.at<ushort>(point1);
-    d_value = float(d)/1000 ;      //强制转换
-    d_value1 = float(d1)/1000 ;      //强制转换
-    if(judge_dis(i,depth_pic) )
+    //Point point,point1;
+    //point = {320,240};
+    //point1 = {600,240};
+    //ushort d,d1;
+    //d = depth_pic.at<ushort>(point);
+    //d1 = depth_pic.at<ushort>(point1);
+    //d_value = float(d)/1000 ;      //强制转换
+    //d_value1 = float(d1)/1000 ;      //强制转换
+    if(judge_dis(depth_pic) )
     {
-        if(i == 13)
             std::cout<<"turn!!!!!!!!!!!!"<<std::endl;
+            res = 1;
     }
 
 
@@ -125,9 +103,9 @@ void depth_imageCb(const sensor_msgs::ImageConstPtr& msg)
     //std::cout<< "Value of depth_pic's pixel= "<<d_value<< "         "<<d_value1<<std::endl;
 
 
-
+    std::cout<<res<<std::endl;
     std_msgs::UInt8 dis;
-    dis.data = d_value * 1000;
+    dis.data = res;
     depthPub.publish(dis);
 }
 
